@@ -10,11 +10,15 @@ import Foundation
 import SwiftUI
 
 struct User: Codable, Identifiable {
-    let id = UUID()
+    let id: String
     var name: String
     var age: Int
     var company: String
+    var about: String
+    var isActive: Bool
+    var email: String
     var friends: [Friends]
+    
 }
 
 struct Friends: Codable {

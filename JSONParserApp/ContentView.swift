@@ -10,18 +10,32 @@ import SwiftUI
 
 struct ContentView: View {
     @State var users: [User] = []
+    @State private var showingInfo = false
     
     var body: some View {
         List(users) { user in
             VStack(alignment: .leading){
-                Text("Name: \(user.name)")
-                    .font(.headline)
+                Button("Name: \(user.name)") {
+                    self.showingInfo.toggle()
+                }
+                
+                .foregroundColor(Color.blue)
+                .cornerRadius(2)
+                .sheet(isPresented: self.$showingInfo) {
+                    InfoView(info: user.about, name: user.name, active: user.isActive, email: user.email)
+                        
+                }
+                
+                    
+                
+                Text("Age: \(user.age)")
+                    .font(.subheadline)
                 
                 Text("Company: \(user.company)")
                     .font(.subheadline)
                 
-                Text("Age: \(user.age)")
-                    .font(.subheadline)
+                
+                
             }
         }
         .onAppear {
