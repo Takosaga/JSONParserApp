@@ -9,15 +9,24 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var posts: [Post] = []
+    @State var users: [User] = []
     
     var body: some View {
-        List(posts) { post in
-            Text(post.title)
+        List(users) { user in
+            VStack(alignment: .leading){
+                Text("Name: \(user.name)")
+                    .font(.headline)
+                
+                Text("Company: \(user.company)")
+                    .font(.subheadline)
+                
+                Text("Age: \(user.age)")
+                    .font(.subheadline)
+            }
         }
         .onAppear {
-            Api().getPosts { (posts) in
-                self.posts = posts
+            Api().getUsers { (users) in
+                self.users = users
             }
         }
     }

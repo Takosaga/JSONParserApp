@@ -9,24 +9,30 @@
 import Foundation
 import SwiftUI
 
-struct Post: Codable, Identifiable {
+struct User: Codable, Identifiable {
     let id = UUID()
-    var title: String
-    var body: String
+    var name: String
+    var age: Int
+    var company: String
+    var friends: [Friends]
+}
+
+struct Friends: Codable {
+    var name: String
 }
 
 
 class Api {
-    func getPosts(completion: @escaping ([Post]) -> ()) {
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else {
+    func getUsers(completion: @escaping ([User]) -> ()) {
+        guard let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json") else {
             print("Invalid URL")
             return
         }
         
         URLSession.shared.dataTask(with: url) { (data, _, _) in
-            let posts = try! JSONDecoder().decode([Post].self, from: data!)
+            let users = try! JSONDecoder().decode([User].self, from: data!)
             DispatchQueue.main.async {
-                completion(posts)
+                completion(users)
             }
         }
     .resume()
